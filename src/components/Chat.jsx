@@ -8,9 +8,12 @@ import { GoPlus } from "react-icons/go";
 import { useForm } from "react-hook-form"
 import { io } from "socket.io-client";
 import ChatUi from './ChatUi';
+const apiUrl = import.meta.env.REACT_APP_API_URL;
 
 
 const Chat = () => {
+
+console.log(apiUrl);
 
   const [userText, setUserText] = useState([]) 
     const [text, setText] = useState("");
@@ -33,7 +36,7 @@ const Chat = () => {
     defaultValues: { message: "" }
   })
 useEffect(() => {
-const socketIns = io("http://localhost:3000");
+const socketIns = io("http://localhost:5000");
 setsocket(socketIns)
 socketIns.on("ai_response" , (res)=>{
   const botMessage ={
@@ -64,7 +67,7 @@ const userMessage ={
 
 setUserText(prev => [...prev, userMessage])
    socket.emit("message" , data.message)
-    reset()
+   setText("")
     
   }
 
@@ -107,21 +110,21 @@ const michanddler = () => {
 
   return (
     <div className='w-[100%] h-[100%] bg-[#E2E4F3] rounded-4xl flex overflow-hidden'>
-<div className='w-20 bg-[#E2E4F3] rounded-s-4xl flex flex-col items-center pt-5 gap-2'>
+<div className='hidden w-20 bg-[#E2E4F3] rounded-s-4xl sm:flex flex-col items-center pt-5 gap-2'>
   <button className='w-10 h-10 rounded-full flex justify-center items-center  text-white text-2xl bg-black'><IoAdd /></button>
   <button className='w-10 h-10 rounded-full flex justify-center items-center  text-black text-3xl bg-white overflow-hidden pt-3'><FaUser /></button>
   </div> 
 <div className='flex-1  rounded-4xl overflow-hidden  bg-white bg-[radial-gradient(at_top_left,rgba(219,234,254,0.5)_0%,transparent_60%),radial-gradient(at_bottom_right,rgba(240,171,252,0.5)_0%,transparent_60%)] bg-no-repeat bg-cover'>
-<nav className='w-full h-20 flex  justify-between items-center px-10'>
-  <p className='text-md'>Assistant v2.5</p>
+<nav className='w-full h-20 flex  justify-between items-center px-5 md:px-10'>
+  <p className='text-md hidden sm:inline'>Assistant v2.5</p>
  <p className='text-xl font-bold uppercase'>Textra</p>
  
- <button className='flex items-center capitalize text-white bg-black md:text-sm justify-center gap-1 rounded-full w-35 h-10'><WiStars />upgrade</button>
+ <button className='flex items-center capitalize text-white bg-black text-[12px] md:text-sm justify-center gap-1 rounded-full p-1 sm:w-35 sm:h-10'><WiStars />upgrade</button>
 </nav>
 <main className="overflow-hidden w-full h-[calc(100%-80px)] relative ">
-  <div className='w-2/3 left-20 md:left-70 top-20 relative'>
+  <div className='w-2/3 left-15 sm:left-20 md:left-70 top-20 relative'>
   {
-    userText.length==0?  <p className='text-5xl md:text-6xl capitalize absolute z-5 tracking-tighter'><span className='text-black/50'> hi textra,</span> ready to<br/> achieve great things?</p>
+    userText.length==0?  <p className='text-4xl sm:text-5xl md:text-6xl capitalize absolute z-5 tracking-tighter'><span className='text-black/50'> hi textra,</span> ready to<br/> achieve great things?</p>
 :''
   }
   </div>
@@ -131,8 +134,8 @@ const michanddler = () => {
 </div>
   
 <form action="" onSubmit={handleSubmit(onSubmit)}>
-<div className='absolute w-[80%] md:w-2/3 h-15 md:h-20 left-1/2 -translate-x-1/2 bottom-10 '>
-<div className='absolute left-5 top-1/2 -translate-y-1/2 w-8 h-4 md:w-10  md:h-5 flex justify-center items-center  text-black/80 text-xl md:text-2xl border-r-2  border-black/80  cursor-pointer'><GoPlus /></div>
+<div className='absolute w-[80%] md:w-2/3 h-12 sm:h-15 md:h-20 left-1/2 -translate-x-1/2 bottom-10 '>
+<div className='absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 w-8 h-4 md:w-10  md:h-5 flex justify-center items-center  text-black/80 text-xl md:text-2xl border-r-2  border-black/80  cursor-pointer'><GoPlus /></div>
 <input
   type="text"
   {...register("message", { required: true })}
@@ -141,11 +144,11 @@ const michanddler = () => {
     setText(e.target.value);      
     setValue("message", e.target.value); 
   }}
-  className='outline-0 ps-15 md:ps-20 pe-28 w-full h-full rounded-full border-1 border-black/20 shadow-xl md:placeholder:text-xl capitalize placeholder:tracking-tight placeholder:text-black/50'
+  className='outline-0 ps-12 sm:ps-15 md:ps-20 pe-28 w-full h-full rounded-full border-1 border-black/20 shadow-xl placeholder:text-sm md:placeholder:text-xl capitalize placeholder:tracking-tight placeholder:text-black/50'
   placeholder='How can I help you today ?'
 />
-<button className='absolute right-5 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10  md:h-10 flex justify-center items-center bg-black text-white text-xl md:text-2xl rounded-full cursor-pointer'><CiLocationArrow1 /></button>
-<div className='absolute right-15 md:right-17 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10  md:h-10 flex justify-center items-center border-1 border-black/20 shadow bg-white text-black text-xl md:text-2xl rounded-full cursor-pointer' onClick={michanddler}><BsMic />
+<button className='absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8  sm:h-8 md:w-10  md:h-10 flex justify-center items-center bg-black text-white sm:text-xl md:text-2xl rounded-full cursor-pointer'><CiLocationArrow1 /></button>
+<div className='absolute right-10 sm:right-15 md:right-17 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8  sm:h-8 md:w-10  md:h-10 flex justify-center items-center border-1 border-black/20 shadow bg-white text-black sm:text-xl md:text-2xl rounded-full cursor-pointer' onClick={michanddler}><BsMic />
 </div>
 </div>
 </form>

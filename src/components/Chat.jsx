@@ -8,12 +8,11 @@ import { GoPlus } from "react-icons/go";
 import { useForm } from "react-hook-form"
 import { io } from "socket.io-client";
 import ChatUi from './ChatUi';
-const apiUrl = import.meta.env.REACT_APP_API_URL;
 
 
 const Chat = () => {
+  const api = import.meta.env.REACT_APP_API_URL;
 
-console.log(apiUrl);
 
   const [userText, setUserText] = useState([]) 
     const [text, setText] = useState("");
@@ -36,7 +35,7 @@ console.log(apiUrl);
     defaultValues: { message: "" }
   })
 useEffect(() => {
-const socketIns = io("http://localhost:5000");
+const socketIns = io(api);
 setsocket(socketIns)
 socketIns.on("ai_response" , (res)=>{
   const botMessage ={

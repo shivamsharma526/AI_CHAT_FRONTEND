@@ -1,0 +1,25 @@
+@import "tailwindcss";
+::-webkit-scrollbar {
+  display: none;
+}
+@font-face {
+  font-family: 'shivam';
+  src: url('./Panchang_Complete/Fonts/WEB/fonts/Panchang-Bold.woff') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For IE/Edge (Old) */
+body {
+  -ms-overflow-style: none;
+  font-family: shivam;
+}
+
+p ,input{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

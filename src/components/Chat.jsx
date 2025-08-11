@@ -11,7 +11,6 @@ import ChatUi from './ChatUi';
 
 
 const Chat = () => {
-  const api = import.meta.env.REACT_APP_API_URL;
 
 
   const [userText, setUserText] = useState([]) 
@@ -35,7 +34,9 @@ const Chat = () => {
     defaultValues: { message: "" }
   })
 useEffect(() => {
-const socketIns = io(api);
+const socketIns = io("https://aichat-z74b.onrender.com/", {
+  transports: ['websocket'], // optional, recommended for production
+});
 setsocket(socketIns)
 socketIns.on("ai_response" , (res)=>{
   const botMessage ={
